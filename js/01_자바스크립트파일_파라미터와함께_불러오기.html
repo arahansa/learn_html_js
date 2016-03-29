@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>test</title>
+	<meta charset="utf-8"/>
+
+</head>
+<body>
+
+자바스크립트 파일에 링크를 전달?  <br>
+
+다음의 링크를 참조하길 바랍니다. ㅎ<br>
+http://stackoverflow.com/questions/2190801/passing-parameters-to-javascript-files
+
+<hr>
+HTML
+<pre><code>
+&lt;script id="loadWithParameter" src="loadWithParameter.js" data-message="hello"&gt;
+
+</code></pre>
+자바스크립트
+<pre><code>
+var loadWithParameter = $("#loadWithParameter").attr('data-message');
+console.log("message :" , loadWithParameter);</code></pre>
+
+<hr>
+<br>메시지 : 
+<span id="result"></span>
+
+<script src="jquery-1.11.3.js"></script>
+<script id="loadWithParameter" src="loadWithParameter.js" data-message="hello"></script>
+</body>
+</html>
