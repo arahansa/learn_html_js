@@ -1,0 +1,42 @@
+<html>
+<head>
+	<title>test</title>
+	<meta charset="utf-8"/>
+
+</head>
+<body>
+
+<hr>
+html
+<pre><code>
+
+
+</code></pre>
+자바스크립트
+<pre><code>
+
+</code></pre>
+
+<hr>
+<br>메시지 : 
+<span id="result"></span>
+
+<script src="jquery-1.11.3.js"></script>
+<script>
+// This script sets OSName variable as follows:
+// "Windows"    for all versions of Windows
+// "MacOS"      for all versions of Macintosh OS
+// "Linux"      for all versions of Linux
+// "UNIX"       for all other UNIX flavors 
+// "Unknown OS" indicates failure to detect the OS
+
+var OSName="Unknown OS";
+if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+
+document.write('Your OS: '+OSName);
+</script>
+</body>
+</html>
