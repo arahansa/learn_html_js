@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title>test</title>
+	<meta charset="utf-8"/>
+
+</head>
+<body>
+
+<hr>
+html
+
+<textarea id="summernote">Hello Summernote</textarea>
+
+<br><br>
+
+<pre><code>
+
+
+</code></pre>
+자바스크립트
+<pre><code>
+
+</code></pre>
+
+<hr>
+<br>메시지 : 
+<span id="result"></span>
+
+<script src="jquery-1.11.3.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+
+<script>
+$(document).ready(function() {
+  $('#summernote').summernote();
+});
+</script>
+</body>
+</html>
