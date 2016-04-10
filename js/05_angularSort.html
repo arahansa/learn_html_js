@@ -1,0 +1,179 @@
+
+<html ng-app="testApp">
+ <head>
+  <meta charset="utf-8">
+  <title>title</title>
+  <style>
+  	li { margin-bottom: 5px;}
+  	span { display: block; border : 1px solid black; margin-bottom: 3px;}
+  </style>
+<meta name="author" content="아라한사">
+<meta content="summary" name="twitter:card"/>
+<meta content="@arahansa" name="twitter:site"/>
+<meta name="twitter:title" content="앵귤러 체크박스 순서 정리"/>
+<meta name="twitter:description" content="앵귤러 체크박스 순서 정리 "/>
+<meta name="twitter:creator" content="@arahansa"/>
+<meta property="og:title" content="앵귤러 체크박스 순서 정리."/>
+<meta property="og:description" content="앵귤러 체크박스 순서 정리  "/>
+
+<meta content="article" property="og:type"/>
+
+</head>
+<body ng-controller="categoryController" ng-init="init()">
+
+hello. practice
+
+<ul id="list">
+	<li ng-repeat="category in categoryList|orderBy :'id'">
+		<input data-id="{{category.id}}" type="checkbox" class="checkList" ng-model="category.cb" /> {{category.name}}
+	</li>
+</ul>
+
+<button ng-click="upCategory()"> up </button> &nbsp;&nbsp;&nbsp;
+<button ng-click="downCategory()"> down</button> <br>
+<hr>
+<input id="toInsert" ng-model="tempCategory" type="text" />
+<button ng-click="insertCategory()">  add category </button> <br><br>
+<button ng-click="deleteCategory()">delete category</button> <br><br>
+<button ng-click="saveCategory()"> save to database </button> 
+<input id="saveCategoryResult" type="text" width="500px" /> <br>
+
+
+ 
+ <span class="listSpan" ng-repeat="category in categoryList">
+ 	{{category}} 
+ </span>
+ <br>
+Delete List :: ===  <br>
+  <span class="listSpan" ng-repeat="category in deleteList">
+ 	{{category}} 
+ </span>
+
+<div id="deleteList">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script>
+var app = angular.module('testApp', []);
+app.controller('categoryController', function($scope){
+	
+	$scope.categoryList = [
+		{"id": 0, "name" : "안녕1"},
+		{"id": 1, "name" : "하이2"},
+		{"id": 2, "name" : "하이3"},
+		{"id": 3, "name" : "하이4"},
+		{"id": 4, "name" : "하이5"},
+		{"id": 5, "name" : "하이6"},
+		{"id": 6, "name" : "하이7"},
+		{"id": 7, "name" : "하이8? "},
+		{"id": 8, "name" : "하이9? "},
+		{"id": 9, "name" : "하이10? "},
+		{"id": 10, "name" : "하이11? "}
+	]
+	$scope.deleteList = [];
+	$scope.init = init;
+	$scope.insertCategory = insertCategory;
+	$scope.deleteCategory = deleteCategory;
+	$scope.upCategory = upCategory;
+	$scope.downCategory = downCategory;
+	$scope.saveCategory = saveCategory;	
+
+	function init(){
+		$($scope.categoryList).each(function(k,v){
+			v.cb=false;
+			v.initial_id= v.id;
+		});
+		$scope.categoryList = $scope.categoryList.sort(ascSort);
+	}
+
+	function insertCategory(){
+		$scope.categoryList.push({ "id": $scope.categoryList.length, "name" : $scope.tempCategory})
+		$scope.tempCategory="";
+	}
+
+	function deleteCategory(){
+		for(var i=0;i<$scope.categoryList.length;i++){
+			var $this = $scope.categoryList[i];
+			if($this.cb==true){
+				$scope.deleteList.push($this);
+				$scope.categoryList.splice(i,1);
+				i--;
+			}
+		}
+		console.log("삭제된 데이터들 :: ", $scope.deleteList);
+		$scope.categoryList = $scope.categoryList.sort(ascSort);
+		for (var i = 0; i < $scope.categoryList.length; i++) {
+			$scope.categoryList[i].id = i;
+		};
+	}
+
+	function upCategory(){
+		for(var i=0;i<$scope.categoryList.length;i++){
+			var $this = $scope.categoryList[i];
+			if($this.cb==true){
+				var returnIndex = getFirstFalseIndex(i);
+				if( returnIndex == -1 ) returnIndex = $scope.categoryList.length;
+				if(i!=0){
+					$scope.categoryList[i-1].id=$scope.categoryList[returnIndex-1].id
+					for(var j=$this.id;j<returnIndex;j++){
+						$scope.categoryList[j].id = $scope.categoryList[j].id - 1;
+					}
+					i=returnIndex;	
+				}	
+			}
+		}
+		$scope.categoryList = $scope.categoryList.sort(ascSort);
+	}
+
+	function downCategory(){
+		for(var i=0;i<$scope.categoryList.length;i++){
+			var $this = $scope.categoryList[i];
+			if($this.cb==true){
+				var returnIndex = getFirstFalseIndex(i);
+				if(returnIndex!=-1){
+					$scope.categoryList[returnIndex].id=$this.id;
+					for(var j=$this.id;j<returnIndex;j++){
+						$scope.categoryList[j].id = $scope.categoryList[j].id + 1;
+					}	
+					i=returnIndex;
+				}	
+			}
+		}
+		$scope.categoryList = $scope.categoryList.sort(ascSort);
+	}
+
+	function saveCategory(){
+		var updateTxt = "Update=";
+		$($scope.categoryList).each(function (k,v){
+			if(v.id != v.initial_id){
+				updateTxt += ("," + v.id);	
+			}
+		});	
+
+		var deleteTxt = "Delete=";
+		$($scope.deleteList).each(function (k,v){
+			deleteTxt +=  ("," + v.id);
+		});
+		$("#saveCategoryResult").val(updateTxt + "::" +deleteTxt);
+
+	}
+
+	function getFirstFalseIndex(start){
+		var returnIndex = -1;
+		for(var i=start;i<$scope.categoryList.length;i++){
+			if($scope.categoryList[i].cb==false){
+				returnIndex = i;
+				break;
+			}
+		}
+		return returnIndex;
+	}
+	
+	function descSort(a,b){ var x = a['id']; var y = b['id']; return ((x < y) ? 1 : ((x > y) ? -1 : 0));}
+	function ascSort(a,b){ var x = a['id']; var y = b['id']; return ((x < y) ? -1 : ((x > y) ? 1 : 0));}
+});
+</script>
+</body>
+</html>
