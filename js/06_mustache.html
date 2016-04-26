@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mustache</title>
+</head>
+<body>
+
+<div id="content">
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+<script>
+$(function(){
+
+	var tmpl = $("#testTemplate").html();
+	var rendered = Mustache.render(tmpl, {msg: 'hello world'});
+	$("#content").html(rendered);
+});
+
+</script>
+
+<script id="testTemplate" type="x-tmpl-mustache">
+<div class="list_section" id="mainDiv">
+ {{msg}}
+</div>
+</script>
+</body>
+</html>
