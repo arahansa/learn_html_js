@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>test</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+<br>
+
+<hr>
+HTML
+
+자바스크립트
+<pre><code>
+
+</code></pre>
+
+<hr>
+<br>메시지 : 
+<span id="result"></span>
+
+<script src="jquery-1.11.3.js"></script>
+<script>
+var editTarget = {
+ 		"mainComment" : { target : "div.reple_regist" , tmpl : "#tmpl_con_upd"  },
+ 		"childComment" : { target : "div.re_reple" , tmpl : "tmpl_con_upd4Child"},
+ 		"getMyType" : function(data){
+        	if(data=="main")
+        		return editTarget.mainComment
+        	else
+        		return editTarget.childComment
+    	}
+ 	}
+ 	var selectedTarget = editTarget.getMyType("main");
+ 	console.log("선택된 타겟  : " , selectedTarget);
+
+ 	console.log("선택된 타겟 타겟  : " , selectedTarget.target);
+
+</script>
+</body>
+</html>
