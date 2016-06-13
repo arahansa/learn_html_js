@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mustache</title>
+</head>
+<body>
+
+<div id="content">
+
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="moment-with-locales.min.js"></script>
+<script>
+$(function(){
+	for(var i=0;i<12;i++){
+		console.log(moment().subtract(i, 'months').format('YYYY-MM-DD'));	
+	}
+});
+
+</script>
+
+<script id="testTemplate" type="x-tmpl-mustache">
+<div class="list_section" id="mainDiv">
+ {{msg}}
+</div>
+</script>
+</body>
+</html>
