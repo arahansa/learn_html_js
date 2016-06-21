@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>test</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+<br>
+
+<hr>
+HTML
+
+자바스크립트
+<pre><code>
+
+</code></pre>
+
+<hr>
+<br>메시지 : 
+<button id="result">버튼</button>
+
+<script src="jquery-1.11.3.js"></script>
+<script data-main="requireConfig" src="require.js"></script>
+<script>
+
+$(function(){
+	$("#result").click(function(){
+		var a = function(){
+			console.log("에이버튼");
+		}
+		console.log("하이");
+		a();
+	});
+});
+
+</script>
+</body>
+</html>
