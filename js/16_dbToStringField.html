@@ -31,6 +31,11 @@
             console.log("row1 : " , row[0]);
             console.log("row2 : " , row[1]);
             $("#target").append("private String "+getLowerName(row[1])+"; // "+row[0] +"\n");
+            if((i+1)%5==0){
+                console.log("5번째 로우 : "+row);
+                $("#target").append("\n");
+            } 
+                
         }
 
         $("#target").focus();
