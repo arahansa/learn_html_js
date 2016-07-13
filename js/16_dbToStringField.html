@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>validation Test</title>
+	<meta charset="utf-8"/>
+	<script src="jquery-1.11.3.js"></script>	
+    <script src="underscore-min.js"></script>
+</head>
+<body>
+<button onclick="change()">변환</button>
+<hr>
+	<textarea id="origin" cols="100" rows="100">회원명    USER_NM
+회원명타입    USER_NM_CD   
+    </textarea>
+    <textarea id="target" cols="100" rows="100"></textarea>
+
+
+<script>
+    const underScore = "_";
+	  function change(){
+        $("target").val("");
+        console.log("변화");
+        var lines = $('#origin').val().split('\n');
+        for(var i = 0;i < lines.length;i++){
+            if(lines[i].trim().length==0) continue;
+            //code here using lines[i] which will give you each line
+            var row = lines[i].trim().split(/\s+/);
+
+            console.log("row1 : " , row[0]);
+            console.log("row2 : " , row[1]);
+            $("#target").append("private String "+getLowerName(row[1])+"; // "+row[0] +"\n");
+        }
+      }
+
+      function getLowerName(name){
+        var name = name.toLowerCase();
+        while(name.includes(underScore)){
+            console.log("char : "+name.indexOf(underScore));
+            name = getUppercaseLetter(name, name.indexOf(underScore));
+        }
+        return name;
+      }
+        function getUppercaseLetter(name, position){
+            console.log("charAt : ", name.charAt(position+1).toUpperCase());
+            return name.substr(0, position) + name.charAt(position+1).toUpperCase() + name.substr(position+2, name.length);
+        }
+
+</script>
+</body>
+</html>
