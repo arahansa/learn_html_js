@@ -8,16 +8,19 @@
 <body>
 <button onclick="change()">변환</button>
 <hr>
-	<textarea id="origin" cols="100" rows="100">회원명    USER_NM
+	<textarea id="origin" cols="80" rows="100">회원명    USER_NM
 회원명타입    USER_NM_CD   
     </textarea>
-    <textarea id="target" cols="100" rows="100"></textarea>
+    <textarea id="target" cols="80" rows="100"></textarea>
 
 
 <script>
     const underScore = "_";
+      function setNull(){
+        $("#target").html('');
+      }
 	  function change(){
-        
+        setNull();
         console.log("변화");
         var lines = $('#origin').val().split('\n');
         for(var i = 0;i < lines.length;i++){
@@ -29,18 +32,19 @@
             console.log("row2 : " , row[1]);
             $("#target").append("private String "+getLowerName(row[1])+"; // "+row[0] +"\n");
         }
+
+        $("#target").focus();
       }
 
+      
       function getLowerName(name){
         var name = name.toLowerCase();
-        while(name.includes(underScore)){
-            console.log("char : "+name.indexOf(underScore));
+        while(name.indexOf(underScore)>-1){
             name = getUppercaseLetter(name, name.indexOf(underScore));
         }
         return name;
       }
         function getUppercaseLetter(name, position){
-            console.log("charAt : ", name.charAt(position+1).toUpperCase());
             return name.substr(0, position) + name.charAt(position+1).toUpperCase() + name.substr(position+2, name.length);
         }
 
