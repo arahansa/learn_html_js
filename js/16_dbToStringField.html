@@ -3,7 +3,24 @@
 	<title>validation Test</title>
 	<meta charset="utf-8"/>
 	<script src="jquery-1.11.3.js"></script>	
-    <script src="underscore-min.js"></script>
+    
+
+<meta name="author" content="아라한사">
+<title> 문서 컬럼 변환기 4 자바 </title>
+
+<!-- SEO -->
+<meta content="summary" name="twitter:card"/>
+<meta content="@arahansa" name="twitter:site"/>
+<meta name="twitter:title" content="문서 컬럼 변환기 4 자바"/>
+<meta name="twitter:description" content="문서 컬럼 변환기 4 자바"/>
+<meta name="twitter:creator" content="@arahansa"/>
+<meta name="twitter:image:src" content="../img/me.jpg"/>
+
+<meta property="og:title" content="문서 컬럼 변환기 4 자바"/>
+<meta property="og:image" content="../img/me.jpg"/>
+<meta property="og:description" content="문서 컬럼 변환기 4 자바 "/>
+<meta content="article" property="og:type"/>
+
 </head>
 <body>
 <button onclick="changeToJavaField()">자바 필드로 변환</button>
@@ -58,14 +75,14 @@ function getUppercaseLetter(name, position){
 function changeToSqlQuery(){
     setNull();
     var lines = $('#origin').val().split('\n');
-    var comma = " , ";
+    var comma = "\t,";
     var selectStatement = "SELECT \n ";
     for(var i = 0;i < lines.length;i++){
         if(lines[i].trim().length==0) continue;
         var row = lines[i].trim().split(/\s+/);
 
         var targetString = i==0 ?  selectStatement : comma;
-        $("#target").append(targetString+row[1]+ " AS " +getLowerName(row[1])+" \t\t /* "+ row[0] + " */ \n");
+        $("#target").append(targetString+row[1]+ " as " +getLowerName(row[1])+" \t\t /* "+ row[0] + " */ \n");
         if((i+1)%5==0){
             console.log("5번째 로우 : "+row);
             $("#target").append("\n");
