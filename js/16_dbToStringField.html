@@ -25,6 +25,7 @@
 <body>
 <button onclick="changeToJavaField()">자바 필드로 변환</button>
 <button onclick="changeToSqlQuery()">SQL 쿼리로 변환</button>
+<button onclick="changeToSqlInsertQuery()">SQL 인서트 쿼리로 변환</button>
 <hr>
 	<textarea id="origin" cols="80" rows="100">회원명    USER_NM
 회원명타입    USER_NM_CD   
@@ -87,6 +88,29 @@ function changeToSqlQuery(){
             console.log("5번째 로우 : "+row);
             $("#target").append("\n");
         } 
+    }
+    $("#target").focus();
+}
+
+function changeToSqlInsertQuery(){
+    setNull();
+    var lines = $('#origin').val().split('\n');
+    var comma = "\t,";
+
+    for(var i = 0;i < lines.length;i++){
+        if(lines[i].trim().length==0) continue;
+        var row = lines[i].trim().split(/\s+/);
+
+        $("#target").append(comma +row[1]+ " \t\t /* "+ row[0] + " */ \n");
+
+    }
+
+    $("#target").append(" ) VALUES ( \n");
+
+    for(var i = 0;i < lines.length;i++){
+        if(lines[i].trim().length==0) continue;
+        var row = lines[i].trim().split(/\s+/);
+        $("#target").append(comma + "#{" +getLowerName(row[1])+ "}" + " \t\t /* "+ row[0] + " */ \n");
     }
     $("#target").focus();
 }
