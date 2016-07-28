@@ -1,0 +1,57 @@
+<html>
+<head>
+	<title>validation Test</title>
+	<meta charset="utf-8"/>
+	<script src="jquery-1.11.3.js"></script>	
+    
+
+<meta name="author" content="아라한사">
+<title> 카운트 레터 </title>
+
+</head>
+<body>
+<button onclick="countLetter()">글자수 세기</button>
+<hr>
+	<textarea id="origin" cols="80" rows="30"></textarea><br>
+    맥시멈 길이 : <input type="text" name="maxCount" id="maxCount"  value="200" />
+
+
+<script>
+
+function countLetter(){
+    var letters = $("#origin").val();
+    var countMax = $("#maxCount").val();
+    var resultLetters = fn_byteCheck(letters, countMax);
+    $("#origin").val(resultLetters);
+}
+
+/**
+ * 바이트 체크
+ */
+function fn_byteCheck( obj,byteLength ) {
+    var contents = obj;
+    var int_char_count = 0;
+    var returnValue = "";
+
+    for (var k = 0; k < contents.length; k++) {
+      if (escape(contents.charAt(k)).length > 4)
+        int_char_count += 3;
+      else
+        int_char_count++;
+
+      if (int_char_count > byteLength) {
+        //alert(byteLength + "byte 까지만 입력가능합니다. 현재길이 :"+int_char_count);
+
+        //return returnValue;
+        //break;
+      }
+      returnValue += contents.charAt(k);
+    }
+    alert("길이 : "+ int_char_count);
+    return returnValue;
+}
+
+
+</script>
+</body>
+</html>

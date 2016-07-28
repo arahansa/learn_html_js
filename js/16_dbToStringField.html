@@ -26,6 +26,9 @@
 <button onclick="changeToJavaField()">자바 필드로 변환</button>
 <button onclick="changeToSqlQuery()">SQL 쿼리로 변환</button>
 <button onclick="changeToSqlInsertQuery()">SQL 인서트 쿼리로 변환</button>
+<br>
+<input type="checkbox" id="reverseChk"> 디비 컬럼명이 앞에 나올 경우 체크 하세요
+
 <hr>
 	<textarea id="origin" cols="80" rows="100">회원명    USER_NM
 회원명타입    USER_NM_CD   
@@ -40,6 +43,8 @@ function setNull(){
 }
 
 function changeToJavaField(){
+    console.log("체크박스 선택 여부 : ", $("#reverseChk").is(":checked"));
+
     setNull();
     console.log("변화");
     var lines = $('#origin').val().split('\n');
@@ -50,7 +55,11 @@ function changeToJavaField(){
 
         console.log("row1 : " , row[0]);
         console.log("row2 : " , row[1]);
-        $("#target").append("private String "+getLowerName(row[1])+"; // "+row[0] +"\n");
+        if($("#reverseChk").is(":checked")){
+            $("#target").append("private String "+getLowerName(row[0])+"; // "+row[1] +"\n");    
+        }else{
+            $("#target").append("private String "+getLowerName(row[1])+"; // "+row[0] +"\n");    
+        }
         if((i+1)%5==0){
             console.log("5번째 로우 : "+row);
             $("#target").append("\n");
