@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+test !! 
+
+글씨 : <input id="text1" type="text"> 기본 : $('#text1').textcounter(); <br><br>
+
+글씨2 : <input  id="text2" type="text">  $('#text2').textcounter({max:10}); <br><br>
+
+내용 : <textarea id="textarea1"></textarea> $('#textarea1').textcounter({max:10});<br><br>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="custom_textcounter.min.js"></script>
+<script>
+$('#text1').textcounter();
+$('#text2').textcounter({max:10});
+$('#textarea1').textcounter({max:10});
+</script>
+</body>
+</html>
