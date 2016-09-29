@@ -1,0 +1,19 @@
+<html>
+<head>
+	<title>fuction Test</title>
+	<meta charset="utf-8"/>
+	<script src="jquery-1.11.3.js"></script>	
+    
+</head>
+<body>
+    뒤로가기 막기 페이지
+
+<script>
+history.pushState(null, null, location.href);
+window.onpopstate = function(event) {
+    history.go(1);
+};
+</script>
+
+</body>
+</html>
