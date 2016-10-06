@@ -105,11 +105,14 @@
 				base.$el.val(base.options.initalValue)
 				base.isInitValue = true;
 			}
+			base.setCursorBasicPoint();
+		}
+
+		// 초기 커서 위치로 이동
+		base.setCursorBasicPoint = function(e){
 			var cursorPosition = base.$el.val().length - base.options.limitNumber;
 			base.$el.setSelectionRange(cursorPosition, cursorPosition);
 		}
-
-		base.setCursorBasicPoint
 
 		// 키업
 		base.keyUpBaseElem = function(e){
@@ -144,8 +147,7 @@
 			
 			// hacky 한 방법으로 마우스 커서를 이동시키게 했을 경우에는 자릿수로 이동시킨다.
 			if(differ < base.options.limitNumber){
-				var cursorPosition = base.$el.val().length - base.options.limitNumber;
-				base.$el.setSelectionRange( cursorPosition , cursorPosition );
+				base.setCursorBasicPoint();
 			}
 
 			// 숫자가 아니거나 화살표키가 아니거나 F키가 아닌 경우에는 입력제한 시킨다.
@@ -184,8 +186,8 @@
 		// 포커스를 잃을 때 가격 제한 밸리데이션이 걸려있다면 특정함수를 발동시킨다.
 		base.focusOutBaseElem = function(e){
 			var validMinMax = base.options.validMinMax != "false";
-			var isValidValue = base.$el.val() < base.options.minValue || base.$el.val() > base.options.maxValue;
-			if( validMinMax && isValidValue){
+			var isNotValidValue = base.$el.val() < base.options.minValue || base.$el.val() > base.options.maxValue;
+			if( validMinMax && isNotValidValue){
 				base.options.validMinMaxFunc(base.options.minValue, base.options.maxValue);
 				base.$el.focus();
 				base.$el.addClass(base.options.errorClassName);
